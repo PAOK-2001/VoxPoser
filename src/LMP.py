@@ -1,7 +1,8 @@
 
-import openai
+from openai import OpenAI
+client = OpenAI()
 from time import sleep
-from openai.error import RateLimitError, APIConnectionError
+from openai import RateLimitError, APIConnectionError
 from pygments import highlight
 from pygments.lexers import PythonLexer
 from pygments.formatters import TerminalFormatter
@@ -35,7 +36,7 @@ class LMP:
 
         if self._cfg['maintain_session'] and self.exec_hist != '':
             prompt += f'\n{self.exec_hist}'
-        
+
         prompt += '\n'  # separate prompted examples with the query part
 
         if self._cfg['include_context']:
@@ -46,7 +47,7 @@ class LMP:
         prompt += f'\n{user_query}'
 
         return prompt, user_query
-    
+
     def _cached_api_call(self, **kwargs):
         # check whether completion endpoint or chat endpoint is used
         if kwargs['model'] != 'gpt-3.5-turbo-instruct' and \
@@ -76,7 +77,7 @@ class LMP:
                 print('(using cache)', end=' ')
                 return self._cache[kwargs]
             else:
-                ret = openai.ChatCompletion.create(**kwargs)['choices'][0]['message']['content']
+                ret = client.chat.completions.create(**kwargs).choices[0].message.content
                 # post processing
                 ret = ret.replace('```', '').replace('python', '').strip()
                 self._cache[kwargs] = ret
@@ -86,7 +87,7 @@ class LMP:
                 print('(using cache)', end=' ')
                 return self._cache[kwargs]
             else:
-                ret = openai.Completion.create(**kwargs)['choices'][0]['text'].strip()
+                ret = client.completions.create(**kwargs).choices[0].text.strip()
                 self._cache[kwargs] = ret
                 return ret
 
@@ -166,13 +167,13 @@ def merge_dicts(dicts):
         for d in dicts
         for k, v in d.items()
     }
-    
+
 
 def exec_safe(code_str, gvars=None, lvars=None):
     banned_phrases = ['import', '__']
     for phrase in banned_phrases:
         assert phrase not in code_str
-  
+
     if gvars is None:
         gvars = {}
     if lvars is None:
