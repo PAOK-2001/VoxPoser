@@ -3,7 +3,7 @@ from transforms3d.quaternions import mat2quat
 from voxposer.utils import normalize_vector
 import copy
 import time
-from dynamics_models import PushingDynamicsModel
+from voxposer.dynamics_models import PushingDynamicsModel
 
 # creating some aliases for end effector and table in case LLMs refer to them differently
 EE_ALIAS = ['ee', 'endeffector', 'end_effector', 'end effector', 'gripper', 'hand']

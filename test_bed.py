@@ -8,7 +8,7 @@ from voxposer.utils import set_lmp_objects
 import numpy as np
 from rlbench import tasks
 
-config = get_config('rlbench')
+config = get_config(config_path='src/voxposer/configs/rlbench_config.yaml')
 # uncomment this if you'd like to change the language model (e.g., for faster speed or lower cost)
 # for lmp_name, cfg in config['lmp_config']['lmps'].items():
 #     cfg['model'] = 'gpt-3.5-turbo'
@@ -43,4 +43,4 @@ descriptions, obs = env.reset()
 set_lmp_objects(lmps, env.get_object_names())  # set the object names to be used by voxposer
 
 instruction = np.random.choice(descriptions)
-voxposer_ui(instruction)
+voxposer_ui("close gripper and move above the object")
