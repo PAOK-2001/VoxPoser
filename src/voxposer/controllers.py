@@ -1,6 +1,6 @@
 import numpy as np
 from transforms3d.quaternions import mat2quat
-from utils import normalize_vector
+from voxposer.utils import normalize_vector
 import copy
 import time
 from dynamics_models import PushingDynamicsModel

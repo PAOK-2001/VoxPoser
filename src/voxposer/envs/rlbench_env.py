@@ -8,7 +8,7 @@ from rlbench.action_modes.gripper_action_modes import Discrete, GripperActionMod
 from rlbench.environment import Environment
 import rlbench.tasks as tasks
 from pyrep.const import ObjectType
-from utils import normalize_vector, bcolors
+from voxposer.utils import normalize_vector, bcolors
 
 class CustomMoveArmThenGripper(MoveArmThenGripper):
     """

@@ -1,9 +1,10 @@
 import openai
-from arguments import get_config
-from interfaces import setup_LMP
-from visualizers import ValueMapVisualizer
-from envs.rlbench_env import VoxPoserRLBench
-from utils import set_lmp_objects
+from voxposer.arguments import get_config
+from voxposer.interfaces import setup_LMP
+from voxposer.visualizers import ValueMapVisualizer
+from voxposer.envs.rlbench_env import VoxPoserRLBench
+from voxposer.utils import set_lmp_objects
+
 import numpy as np
 from rlbench import tasks
 
